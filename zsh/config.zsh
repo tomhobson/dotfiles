@@ -5,6 +5,9 @@ fpath=($ZSH/functions $fpath)
 
 autoload -U $ZSH/functions/*(:t)
 
+# Load the oh-my-zsh theme
+ZSH_THEME="gozilla"
+
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000

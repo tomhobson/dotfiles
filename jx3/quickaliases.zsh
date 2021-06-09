@@ -1,0 +1,1 @@
+alias getVaultKey="kubectl get secrets vault-unseal-keys  -n jx-vault -o jsonpath={.data.vault-root} | base64 --decode"

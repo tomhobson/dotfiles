@@ -60,7 +60,7 @@ battery_status() {
   then
    exit 0
   fi
-  echo "%{$fg_bold[yellow]%} battery: $batteryPercent %{$reset_color%}"
+  echo "battery: %{$fg_bold[yellow]%} $batteryPercent %{$reset_color%}"
 }
 
 date_time() {

@@ -20,9 +20,9 @@ git_dirty() {
   else
     if [[ $($git status --porcelain) == "" ]]
     then
-      echo "on %{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
+      echo "git: %{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
     else
-      echo "on %{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
+      echo "git: %{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
     fi
   fi
 }
@@ -51,24 +51,30 @@ need_push () {
 }
 
 directory_name() {
-  echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
+  echo "%{$fg_bold[yellow]%}%1/%\/%{$reset_color%}"
 }
 
 battery_status() {
-  if test ! "$(uname)" = "Darwin"
-  then
-    exit 0
-  fi
-
-  if [[ $(sysctl -n hw.model) == *"Book"* ]]
+  
+  if [[ $(uname) == "Darwin" ]] && [[ $(sysctl -n hw.model) == *"Book"* ]]
   then
     $ZSH/bin/battery-status
   fi
+
+  if [[ $(uname) == "Linux" ]]
+  then
+    upower -i $(upower -e | grep 'BAT') | grep -E "state|to\ full|percentage"
+  fi
 }
 
-export PROMPT=$'\n$(battery_status)in $(directory_name) $(git_dirty)$(need_push)\n› '
+date_time() {
+  date=$(date +%D)
+  echo "%{$fg_bold[yellow]%}$date %{$reset_color%}"
+}
+
+export PROMPT=$'\ndirectory: $(directory_name) date: $(date_time) $(battery_status)$(git_dirty)$(need_push)\n› '
 set_prompt () {
-  export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
+  export RPROMPT="%{$fg_bold[yellow]%}%{$reset_color%}"
 }
 
 precmd() {

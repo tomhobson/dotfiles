@@ -40,7 +40,6 @@ need_push () {
   if [ $($git rev-parse --is-inside-work-tree 2>/dev/null) ]
   then
     number=$($git cherry -v origin/$(git symbolic-ref --short HEAD) 2>/dev/null | wc -l | bc)
-
     if [[ $number == 0 ]]
     then
       echo " "
@@ -60,7 +59,7 @@ battery_status() {
   then
    exit 0
   fi
-  echo "battery: %{$fg_bold[yellow]%} $batteryPercent %{$reset_color%}"
+  echo "battery:%{$fg_bold[yellow]%}$batteryPercent %{$reset_color%}"
 }
 
 date_time() {

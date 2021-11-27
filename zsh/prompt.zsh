@@ -55,7 +55,12 @@ directory_name() {
 }
 
 battery_status() {
-  $ZSH/bin/battstat/battstat
+  batteryPercent=$($ZSH/bin/battstat/battstat {p})
+  if [[ $batteryPercent == "battstat: no battery found" ]]
+  then
+   exit 0
+  fi
+  echo "%{$fg_bold[yellow]%} battery: $batteryPercent %{$reset_color%}"
 }
 
 date_time() {

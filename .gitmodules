@@ -1,0 +1,3 @@
+[submodule "bin/battstat"]
+	path = bin/battstat
+	url = https://github.com/imwally/battstat

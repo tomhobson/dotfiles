@@ -55,16 +55,7 @@ directory_name() {
 }
 
 battery_status() {
-  
-  if [[ $(uname) == "Darwin" ]] && [[ $(sysctl -n hw.model) == *"Book"* ]]
-  then
-    $ZSH/bin/battery-status
-  fi
-
-  if [[ $(uname) == "Linux" ]]
-  then
-    upower -i $(upower -e | grep 'BAT') | grep -E "state|to\ full|percentage"
-  fi
+  $ZSH/bin/battstat/battstat
 }
 
 date_time() {
